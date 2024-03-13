@@ -2,7 +2,7 @@
 
 "use client"
 import { getVideo, getScreenVideo, makeRTCpeerAndOffer, makeRTCpeer, createOffer, createAnswer } from "./lib/actions";
-import Draggable, { DraggableBounds } from "react-draggable";
+
 import { useSocket } from "./Provider/SocketProvider";
 import { Socket } from "socket.io-client";
 import { useEffect, useState } from "react";
