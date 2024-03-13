@@ -11,11 +11,11 @@ export function useSocket(){
     return socket
 }
 
-
+const baseURL = process.env.NODE_ENV === "production" ? "https://webrtc-practice-2.onrender.com" : "http://localhost:4000"
 export function SocketProvider({ children }: {
     children: React.ReactNode
 }) {
-    const socket = io("http://localhost:4000")
+    const socket = io(baseURL)
     return (
         <SocketContext.Provider value={socket as any}>
             {children}
