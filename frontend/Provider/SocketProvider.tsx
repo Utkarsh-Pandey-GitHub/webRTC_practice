@@ -18,14 +18,10 @@ export function SocketProvider({ children }: {
     
     const socket = io(baseURL)
     const configuration:RTCConfiguration = {'iceServers':[{'urls':'stun:stun.l.google.com:19302'}]}
-    const [RTCpeer,setRTCpeer] = useState<RTCPeerConnection|any>()
-    useEffect(()=>{ 
-        const RTCPeer:RTCPeerConnection = new RTCPeerConnection(configuration)
-        setRTCpeer(RTCPeer)
-    },[])
+    
     
     return (
-        <SocketContext.Provider value={{socket,RTCpeer} as any}>
+        <SocketContext.Provider value={{socket,configuration} as any}>
             {children}
         </SocketContext.Provider>
     )

@@ -5,7 +5,7 @@ import { getVideo, getScreenVideo, makeRTCpeerAndOffer, makeRTCpeer, createOffer
 
 import { useSocket } from "../Provider/SocketProvider";
 import { Socket } from "socket.io-client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState,useLayoutEffect } from "react";
 import { log } from "console";
 import ChatDialog from '../components/myComponents/ChatDialog'
 import Draggable from "react-draggable";
@@ -18,7 +18,12 @@ import {
 
 
 export default function Home() {
-  const { socket, RTCpeer }: any = useSocket()
+  const { socket, configuration }: any = useSocket()
+  const [RTCpeer,setRTCpeer] = useState<RTCPeerConnection|any>()
+    useLayoutEffect(()=>{ 
+        const RTCPeer:RTCPeerConnection = new RTCPeerConnection(configuration)
+        setRTCpeer(RTCPeer)
+    },[])
   // const [RTCpeer, setRTCpeer] = useState<RTCPeerConnection>()
   console.log(RTCpeer);
 
