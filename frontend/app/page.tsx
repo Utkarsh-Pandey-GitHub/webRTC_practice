@@ -51,16 +51,18 @@ export default function Home() {
   }
 
   function sendAnswer() {
-    const answer = createAnswer(RTCpeer as RTCPeerConnection).then((answer) => {
-      return answer
-    }).then((answer) => {
-      console.log('ANSWER', answer);
-      socket?.emit('answer', 'jack', 'jill', answer);
-
-    })
-      .catch((err) => { console.log(err) });
+    if (RTCpeer) {
 
 
+      const answer = createAnswer(RTCpeer as RTCPeerConnection).then((answer) => {
+        return answer
+      }).then((answer) => {
+        console.log('ANSWER', answer);
+        socket?.emit('answer', 'jack', 'jill', answer);
+
+      }).catch((err) => { console.log(err) });
+
+    }
   }
 
   useEffect(() => {
@@ -134,7 +136,7 @@ export default function Home() {
     })
   }
   function stopSendingTrack() {
-    if (localStream) {
+    if (localStream&&RTCpeer) {
       console.log("localStream", localStream);
 
       // (localStream as any).getVideoTracks()[0].enabled = false;
@@ -142,7 +144,7 @@ export default function Home() {
     }
   }
   function toggleTrack() {
-    if (localStream) {
+    if (localStream&&RTCpeer) {
 
       const track = (localStream as any).getVideoTracks()[0];
       if (track) {
@@ -188,7 +190,7 @@ export default function Home() {
   useEffect(() => {
     setPreviewTrack();
     toggleTrack();
-  }, [share]);
+  }, [share, RTCpeer]);
 
   function toggleShare(e: any) {
     setShare({
