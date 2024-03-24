@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { io } from "socket.io-client" 
 
 const SocketContext = createContext(null)
@@ -18,8 +18,11 @@ export function SocketProvider({ children }: {
     
     const socket = io(baseURL)
     const configuration:RTCConfiguration = {'iceServers':[{'urls':'stun:stun.l.google.com:19302'}]}
-
-    const RTCpeer:RTCPeerConnection = new RTCPeerConnection(configuration)
+    const [RTCpeer,setRTCpeer] = useState<RTCPeerConnection|any>()
+    useEffect(()=>{ 
+        const RTCPeer:RTCPeerConnection = new RTCPeerConnection(configuration)
+        setRTCpeer(RTCPeer)
+    },[])
     
     return (
         <SocketContext.Provider value={{socket,RTCpeer} as any}>
