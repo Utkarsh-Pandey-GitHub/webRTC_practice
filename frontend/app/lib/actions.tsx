@@ -1,14 +1,5 @@
 "use client"
 
-export async function getVideo({video,audio}:{video:boolean,audio:boolean}) {
-    const videoMediaStreams = await navigator.mediaDevices.getUserMedia({video:video,audio:audio})
-    return videoMediaStreams
-}
-
-export async function getScreenVideo(){
-    const screenMediaStreams = await navigator.mediaDevices.getDisplayMedia()
-    return screenMediaStreams
-}
 
 
 export async function makeRTCpeerAndOffer(){
@@ -29,6 +20,17 @@ export async function makeRTCpeer(){
 
     return peerConnection
 }
+
+export async function getVideo({video,audio}:{video:boolean,audio:boolean}) {
+    const videoMediaStreams = await navigator.mediaDevices.getUserMedia({video:video,audio:audio})
+    return videoMediaStreams
+}
+
+export async function getScreenVideo(){
+    const screenMediaStreams = await navigator.mediaDevices.getDisplayMedia()
+    return screenMediaStreams
+}
+
 
 export async function createOffer(peerConnection:RTCPeerConnection){
     const offer = await peerConnection.createOffer();

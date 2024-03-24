@@ -26,6 +26,10 @@ io.on('connection', (socket: any) => {
 
         socket.broadcast.emit('SDP_complete')
     })
+    socket.on('toggle',(share:any)=>{
+        console.log("toggle was sent");
+        socket.broadcast.emit('toggle',share)
+    })
     socket.on('disconnect', () => {
         console.log('A peer disconnected with socket id', socket.id)
 
